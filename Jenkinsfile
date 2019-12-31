@@ -1,13 +1,23 @@
-pipeline  {
+pipeline {
     agent any
+    
+    tools {nodejs "node"}
+    
     stages {
-        stage('Build') {
+        stage('Cloning Git') {
             steps {
- withEnv(['HOME=$WORKSPACE']) {
-              sh 'npm install'
-              mocha MyBooking/MyBooking.js
+                git 'https://github.com/prvnmali2017/jenk.git'
             }
-          }
+        }
+        stage('Install Dependencies'){
+            steps {
+                sh 'npm install'
+            }
+        }
+        stage ('Test') {
+            steps {
+                sh 'npm test'
+            }
         }
     }
 }
