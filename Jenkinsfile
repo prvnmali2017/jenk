@@ -4,10 +4,8 @@ pipeline  {
         stage('Build') {
             steps {
  withEnv(['HOME=$WORKSPACE']) {
-            docker.image('node:6.6.0').inside {
-            sh 'npm install'
+              sh 'npm install'
               mocha MyBooking/MyBooking.js
-            }
             }
           }
         }
