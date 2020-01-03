@@ -1,22 +1,10 @@
 pipeline {
-    agent any
-    
-    tools {nodejs "node"}
-    
+    agent { docker { image 'node:6.3' } }
     stages {
-        stage('Cloning Git') {
+        stage('build') {
             steps {
-                git 'https://github.com/prvnmali2017/jenk.git'
-            }
-        }
-        stage('Install Dependencies'){
-            steps {
-                sh 'npm install'
-            }
-        }
-        stage ('Test') {
-            steps {
-                sh 'npm test'
+              sh 'npm --version'
+	      mocha MyBooking/MyBooking.js
             }
         }
     }
